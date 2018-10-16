@@ -107,30 +107,39 @@ $('#fileButton').on('change', function(e){
                     $('#uploader').val(0);
                     $('#upload-form')[0].reset();
                 }, 5000);
-                
+                pastePhoto(downloadURL);
             });
         }
     )
 })
 
-function previewImage(file) {
+// function previewImage(file) {
 
-    if (!file.type.match('/image.*/')) {
-        throw "File Type must be an image";
-    }
+//     if (!file.type.match('/image.*/')) {
+//         throw "File Type must be an image";
+//     }
 
-    var thumb = document.createElement("div");
-    thumb.classList.add('thumbnail'); // Add the class thumbnail to the created div
+//     var thumb = document.createElement("div");
+//     thumb.classList.add('thumbnail'); // Add the class thumbnail to the created div
 
-    var img = document.createElement("img");
-    img.file = file;
-    thumb.appendChild(img);
-    $('#image-preview').appendChild(thumb);
+//     var img = document.createElement("img");
+//     img.file = file;
+//     thumb.appendChild(img);
+//     $('#image-preview').appendChild(thumb);
 
-    // Using FileReader to display the image content
-    var reader = new FileReader();
-    reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-    reader.readAsDataURL(file);
+//     // Using FileReader to display the image content
+//     var reader = new FileReader();
+//     reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+//     reader.readAsDataURL(file);
+// }
+
+function pastePhoto(photoURL) {
+    $('<img />').attr({
+        'src': photoURL,
+        'alt': 'this is the alst',
+        'title': 'this is the title',
+        'width': 250
+    }).appendTo('#image-preview');
 }
 
 // --------------------------------------------------------------------------
