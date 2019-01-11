@@ -127,7 +127,6 @@ function imageToDB(url) {
     database.ref('/images').push({
         imageLink: url
     });
-    console.log('inside imageToDB')
 }
 
 function pastePhoto(photoURL, element) {
