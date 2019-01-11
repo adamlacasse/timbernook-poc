@@ -134,7 +134,8 @@ function pastePhoto(photoURL, element) {
         'src': photoURL,
         'alt': 'this is the alt',
         'title': 'this is the title',
-        'width': 250
+        'width': 250,
+        'a': 'https://www.google.com/search?q=baset+weaving&oq=baset+weaving' // can maybe pass in a link to the Program page (here, or in #landing section)
     }).appendTo(element);
 }
 
