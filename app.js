@@ -23,7 +23,10 @@ function selectQuery() {
     database.ref('/images').on("value", (snapshot) => {
         $('#photos').empty();
         snapshot.forEach(data => {
-            $('#photos').append('<img />');
+            data.forEach(i => {
+                const formattedPhoto = JSON.stringify(i).replace(/['"]+/g, '');
+                pastePhoto(formattedPhoto, '#photos');
+            })
         });
     });
 }
@@ -114,7 +117,7 @@ $('#fileButton').on('change', function (e) {
                     $('#uploader').val(0);
                     $('#upload-form')[0].reset();
                 }, 5000);
-                pastePhoto(downloadURL);
+                pastePhoto(downloadURL, '#image-preview');
             });
         }
     )
@@ -127,13 +130,13 @@ function imageToDB(url) {
     console.log('inside imageToDB')
 }
 
-function pastePhoto(photoURL) {
+function pastePhoto(photoURL, element) {
     $('<img />').attr({
         'src': photoURL,
-        'alt': 'this is the alst',
+        'alt': 'this is the alt',
         'title': 'this is the title',
         'width': 250
-    }).appendTo('#image-preview');
+    }).appendTo(element);
 }
 
 // --------------------------------------------------------------------------
