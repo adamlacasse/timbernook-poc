@@ -13,11 +13,17 @@ const auth = firebase.auth();
 // --------------------------------------------------------------------------
 
 // QUERIES
-function selectQuery(){
+function selectQuery() {
     database.ref('/programs').on("value", (snapshot) => {
         $('#landing').empty();
         snapshot.forEach(data => {
             $('#landing').append($('<p>').text(`${data.val().name} | ${data.val().date} | $${data.val().cost}`));
+        });
+    });
+    database.ref('/images').on("value", (snapshot) => {
+        $('#photos').empty();
+        snapshot.forEach(data => {
+            $('#photos').append('<img />');
         });
     });
 }
@@ -56,7 +62,7 @@ $('#log-in-form').on('submit', e => {
 });
 
 firebase.auth().onAuthStateChanged(userInfo => {
-    if(userInfo){
+    if (userInfo) {
         selectQuery();
         console.log(`Logged in as ${userInfo.email}`);
         $('#auth-div').hide();
@@ -79,7 +85,7 @@ $('#log-out-button').on('click', () => {
 // STORAGE
 
 // Listen for file selection
-$('#fileButton').on('change', function(e){
+$('#fileButton').on('change', function (e) {
     // get file
     var file = e.target.files[0];
 
@@ -92,17 +98,18 @@ $('#fileButton').on('change', function(e){
     // update progress bar
     task.on('state_changed', // "state_changed" function comes with three callback options...
         function progress(snapshot) {
-            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100 ;
+            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             $('#uploader').val(percentage);
         },
         function error(err) {
             console.log(`THERE WAS AN ERROR: ${err}`)
         },
         function complete() {
-            task.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
                 console.log('File available at', downloadURL);
+                imageToDB(downloadURL);
                 $('#upload-result').text('UPLOAD COMPLETE :-)');
-                setTimeout(function(){
+                setTimeout(function () {
                     $('#upload-result').text('');
                     $('#uploader').val(0);
                     $('#upload-form')[0].reset();
@@ -111,27 +118,14 @@ $('#fileButton').on('change', function(e){
             });
         }
     )
-})
+});
 
-// function previewImage(file) {
-
-//     if (!file.type.match('/image.*/')) {
-//         throw "File Type must be an image";
-//     }
-
-//     var thumb = document.createElement("div");
-//     thumb.classList.add('thumbnail'); // Add the class thumbnail to the created div
-
-//     var img = document.createElement("img");
-//     img.file = file;
-//     thumb.appendChild(img);
-//     $('#image-preview').appendChild(thumb);
-
-//     // Using FileReader to display the image content
-//     var reader = new FileReader();
-//     reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-//     reader.readAsDataURL(file);
-// }
+function imageToDB(url) {
+    database.ref('/images').push({
+        imageLink: url
+    });
+    console.log('inside imageToDB')
+}
 
 function pastePhoto(photoURL) {
     $('<img />').attr({
