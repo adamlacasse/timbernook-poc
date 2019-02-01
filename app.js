@@ -10,6 +10,12 @@ firebase.initializeApp(config);
 const database = firebase.database();
 const auth = firebase.auth();
 
+// DEV-----------------------------------------------------------------------
+
+$('#user-info-button').on('click', () => {
+    console.log(`HERE'S AUTH: ${auth.currentUser.uid}`);
+});
+
 // --------------------------------------------------------------------------
 
 // QUERIES
@@ -38,7 +44,8 @@ $('#add-program-form').on('submit', (e) => {
         date: $('#ap-date').val(),
         time: $('#ap-time').val(),
         seats: $('#ap-seats').val(),
-        cost: $('#ap-cost').val()
+        cost: $('#ap-cost').val(),
+        uid: auth.currentUser.uid
     });
     $('#add-program-form')[0].reset();
 });
