@@ -1,0 +1,10 @@
+{
+    "rules": {
+        "programs": {
+            "$program": {
+                ".read": true,
+                ".write": "data.child('uid').val() = $auth.uid"
+            }
+        }
+    }
+}

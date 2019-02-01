@@ -13,7 +13,7 @@ const auth = firebase.auth();
 // DEV-----------------------------------------------------------------------
 
 $('#user-info-button').on('click', () => {
-    console.log(`HERE'S AUTH: ${auth.currentUser.uid}`);
+    console.log(`Thanks for clicking the button. Here's your data: ${JSON.stringify(auth.currentUser)}`);
 });
 
 // --------------------------------------------------------------------------
