@@ -20,6 +20,7 @@ $('#user-info-button').on('click', () => {
 
 // QUERIES
 function selectQuery() {
+    console.log('this is the selectQuery');
     database.ref('/programs').on("value", (snapshot) => {
         $('#landing').empty();
         snapshot.forEach(data => {
@@ -73,8 +74,10 @@ $('#log-in-form').on('submit', e => {
 
 firebase.auth().onAuthStateChanged(userInfo => {
     if (userInfo) {
-        selectQuery();
-        console.log(`Logged in as ${userInfo.email}`);
+        setTimeout(() => {
+            selectQuery();
+        }, 5000);
+        console.log(`Logged in as ${userInfo.uid}`);
         $('#auth-div').hide();
         $('#log-out-button').show();
         $('#program-shiz').show();

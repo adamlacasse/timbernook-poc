@@ -2,8 +2,8 @@
     "rules": {
         "programs": {
             "$program": {
-                ".read": true,
-                ".write": "data.child('uid').val() = $auth.uid"
+                ".read": "root.child('programs/' + $program + '/uid/').val() === auth.uid",
+                ".write": true
             }
         }
     }
