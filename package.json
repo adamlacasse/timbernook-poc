@@ -1,0 +1,23 @@
+{
+  "name": "timbernook-poc",
+  "version": "1.0.0",
+  "description": "Hello Scot!\r Deployed app: https://adamlacasse.github.io/timbernook-poc/",
+  "main": "app.js",
+  "dependencies": {
+    "firebase-admin": "^7.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamlacasse/timbernook-poc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamlacasse/timbernook-poc/issues"
+  },
+  "homepage": "https://github.com/adamlacasse/timbernook-poc#readme"
+}
