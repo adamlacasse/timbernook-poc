@@ -135,7 +135,8 @@ $('#fileButton').on('change', function (e) {
 
 function imageToDB(url) {
     database.ref('/images').push({
-        imageLink: url
+        imageLink: url,
+        uid: auth.currentUser.uid
     });
 }
 
